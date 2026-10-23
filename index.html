@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Raman pattern lab</title>
+<meta name="description" content="A small, honest simulation of computational Raman imaging: light patterns instead of scanning. Change patterns, light, noise and motion and watch the reconstruction change.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,800&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="#top"><span class="brand-mark" aria-hidden="true"></span>Raman pattern lab</a>
+  <nav aria-label="Sections">
+    <a href="#cube">3D cube</a>
+    <a href="#lab">Live lab</a>
+    <a href="#designs">Light patterns</a>
+    <a href="#multiplex">Mixing helps?</a>
+    <a href="#methods">Methods</a>
+    <a href="#trust">How sure?</a>
+    <a href="#motion">Moving sample</a>
+    <a href="#noise">Real noise</a>
+    <a href="#words">Plain words</a>
+  </nav>
+</header>
+
+<main>
+<section class="intro" id="top">
+  <div class="hero-text">
+    <h1>Take fewer pictures, get the same cell.</h1>
+    <p class="lede">A Raman microscope records, for every point of a cell, a colour-fingerprint of its molecules (a <em>spectrum</em>). Scanning point by point is slow. Here the cell is lit with <em>patterns</em> of light instead, and a computer works the image back out. Everything on this page is a simulation you can change.</p>
+  </div>
+  <div class="hero-visual">
+    <div id="hero3d" class="hero3d" role="img" aria-label="A slowly rotating 3D view of the hyperspectral cube of a cell"></div>
+    <div class="hero-btns">
+      <a class="btn" href="#cube">Explore the 3D cube</a>
+      <a class="btn ghost" href="#lab">Open the live lab</a>
+    </div>
+  </div>
+</section>
+
+<section id="cube" class="block"><div class="block-head"><h2>The cube in 3D</h2><p>A hyperspectral cube has two image directions and one spectrum direction. These surfaces show where the signal is bright inside that cube.</p></div><div class="cards" id="g-cube"></div></section>
+
+<section id="lab" class="block">
+  <div class="block-head">
+    <h2>Live lab</h2>
+    <p>Everything here is computed in your browser, right now. Move a slider and the cell is lit, photographed (with realistic noise) and rebuilt again.</p>
+  </div>
+  <div class="lab">
+    <aside class="panel" id="controls" aria-label="Controls"></aside>
+    <div class="lab-out">
+      <div class="metrics" id="metrics"></div>
+      <div class="trio">
+        <figure class="plot-card"><figcaption>The real cell</figcaption><div id="p-true" class="plot sq"></div></figure>
+        <figure class="plot-card"><figcaption id="cap-recon">Rebuilt from the patterns</figcaption><div id="p-recon" class="plot sq"></div></figure>
+        <figure class="plot-card"><figcaption>Mistake (rebuilt minus real)</figcaption><div id="p-err" class="plot sq"></div></figure>
+      </div>
+      <div class="trio">
+        <figure class="plot-card"><figcaption>The light patterns (blue = mirror on)</figcaption><div id="p-pat" class="plot sq"></div></figure>
+        <figure class="plot-card"><figcaption id="cap-frame">What the camera records for one shot</figcaption><div id="p-frame" class="plot sq"></div></figure>
+        <figure class="plot-card"><figcaption id="cap-spec">Spectrum of the clicked pixel</figcaption><div id="p-spec" class="plot sq"></div></figure>
+      </div>
+      <p class="hint">Click any picture of the cell to choose the pixel whose spectrum is drawn. The wavenumber slider picks which colour-slice of the spectrum cube you look at.</p>
+    </div>
+  </div>
+</section>
+
+<section id="designs" class="block"><div class="block-head"><h2>Which light patterns are best?</h2><p>Nine ways of lighting the sample, compared at a fixed total measuring time: more patterns means each one gets less light.</p></div><div class="cards" id="g-designs"></div></section>
+<section id="multiplex" class="block"><div class="block-head"><h2>Does mixing pixels in one shot help?</h2><p>Lighting many pixels at once collects more light per shot. It only pays off when the camera itself is noisy.</p></div><div class="cards" id="g-multiplex"></div></section>
+<section id="methods" class="block"><div class="block-head"><h2>Which way of rebuilding the image?</h2><p>Same measurements, eight different reconstruction recipes. Some of them are told what the molecules look like in advance; that is an optimistic assumption, marked below.</p></div><div class="cards" id="g-methods"></div></section>
+<section id="trust" class="block"><div class="block-head"><h2>How sure can we be?</h2><p>Repeat the experiment with fresh noise and see how much the answer wobbles, which patterns are numerically fragile, and which fine details survive.</p></div><div class="cards" id="g-trust"></div></section>
+<section id="motion" class="block"><div class="block-head"><h2>When the sample moves</h2><p>Movement between shots is usually a nuisance. If you know how far it moved, it can become part of the code.</p></div><div class="cards" id="g-motion"></div></section>
+<section id="noise" class="block"><div class="block-head"><h2>Where the noise numbers come from</h2><p>The camera noise in every experiment was measured from repeated photographs of a real single-pixel imaging dataset (SPIHIM), not invented.</p></div><div class="cards" id="g-noise"></div></section>
+
+<section id="words" class="block">
+  <div class="block-head"><h2>Plain words</h2><p>Each technical term, next to what it means.</p></div>
+  <dl class="gloss" id="glossary"></dl>
+  <div class="honest" id="honest"></div>
+</section>
+</main>
+<footer class="foot"><span id="foot-meta"></span></footer>
+
+<script src="vendor/plotly.min.js"></script>
+<script src="js/engine.js"></script>
+<script src="js/charts.js"></script>
+<script src="js/cards.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>
